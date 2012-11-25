@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module rename-to='mintranet'>
+    <!-- Inherit the core Web Toolkit stuff.                        -->
+    <inherits name='com.google.gwt.inject.Inject'/>
+    <inherits name='com.google.gwt.user.User' />
+    <inherits name="com.google.gwt.place.Place"/>
+    <inherits name="com.google.gwt.activity.Activity"/>
+    <inherits name="com.googlecode.mgwt.MGWT"/>
+    <inherits name="com.googlecode.mgwt.linker.Linker" />
+
+    <!-- Specify the app entry point class.                         -->
+    <entry-point class='com.bull.mintranet.client.MobileIntranet'/>
+
+    <!-- Specify the paths for translatable code                    -->
+    <source path='client'/>
+    <source path='shared'/>
+
+    <set-property name="user.agent" value="safari" />
+
+    <!-- Enable SuperDevMode -->
+    <add-linker name="xsiframe"/>
+    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
+</module>

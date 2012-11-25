@@ -9,6 +9,8 @@ public class MobileIntranet implements EntryPoint {
     public void onModuleLoad() {
         ClientGinjector ginjector = GWT.create(ClientGinjector.class);
 
+        ginjector.getResources().generalStyleCss().ensureInjected();
+
         ginjector.getBootStrapper().init();
         ginjector.getPlaceHistoryHandler().handleCurrentHistory();
     }

@@ -1,6 +1,31 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:mgwt='urn:import:com.googlecode.mgwt.ui.client.widget'>
+
+    <ui:with field="resource" type="com.bull.mintranet.client.resource.Resources"/>
+    <ui:style>
+        .contentWrapper {
+            margin-top: 10px;
+        }
+
+        .imageWrapper {
+            text-align: center;
+        }
+    </ui:style>
+
     <g:HTMLPanel>
-        This is the login Page..
+        <g:HTMLPanel styleName="{style.contentWrapper}">
+            <div class="{style.imageWrapper}">
+                <g:Image resource="{resource.bullLogo}"/>
+            </div>
+
+            <mgwt:RoundPanel>
+                <mgwt:WidgetList round="true" >
+                    <mgwt:MTextBox ui:field="usernameField" placeHolder="Nom d'utilisateur"/>
+                    <mgwt:MPasswordTextBox ui:field="passwordField" placeHolder="Mot de passe"/>
+                </mgwt:WidgetList>
+                <mgwt:Button text="Connexion" ui:field="login"/>
+            </mgwt:RoundPanel>
+        </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -6,4 +6,6 @@ public interface MyMessages extends Messages {
     String numberDays(float count);
 
     String numberTakenDays(float count);
+
+    String congesInterval(String startDate, String endDate);
 }

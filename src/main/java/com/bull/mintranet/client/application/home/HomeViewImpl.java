@@ -3,16 +3,22 @@ package com.bull.mintranet.client.application.home;
 import com.bull.mintranet.client.application.ui.HeaderView;
 import com.bull.mintranet.client.message.MyMessages;
 import com.bull.mintranet.client.resource.Resources;
+import com.bull.mintranet.shared.domaine.DemandeConges;
+import com.bull.mintranet.shared.domaine.NoteFrais;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.googlecode.mgwt.ui.client.MGWT;
+
+import java.util.List;
 
 public class HomeViewImpl extends Composite implements HomeView, HeaderView.Handler {
     public interface Binder extends UiBinder<Widget, HomeViewImpl> {
@@ -36,16 +42,24 @@ public class HomeViewImpl extends Composite implements HomeView, HeaderView.Hand
     SpanElement progress;
     @UiField
     Label progressLabel;
+    @UiField(provided = true)
+    CellList<DemandeConges> listDemandesConges;
 
     private final MyMessages messages;
+    private final ListDataProvider<DemandeConges> demandeCongesProvider;
+    private final ListDataProvider<NoteFrais> noteFraisProvider;
 
     private Presenter presenter;
 
     @Inject
     public HomeViewImpl(final Binder uiBinder, final HeaderView headerView,
-                        final Resources resources, final MyMessages messages) {
+                        final Resources resources, final MyMessages messages,
+                        final ListDataProvider<DemandeConges> demandeCongesProvider,
+                        final ListDataProvider<NoteFrais> noteFraisProvider) {
         this.headerView = headerView;
         this.messages = messages;
+        this.demandeCongesProvider = demandeCongesProvider;
+        this.noteFraisProvider = noteFraisProvider;
 
         initWidget(uiBinder.createAndBindUi(this));
         headerView.setHandler(this);
@@ -80,6 +94,16 @@ public class HomeViewImpl extends Composite implements HomeView, HeaderView.Hand
         } else {
             progressLabel.setText("");
         }
+    }
+
+    @Override
+    public void setDemandeCongesEncours(List<DemandeConges> data) {
+        // TODO : renderer data in CellList.
+    }
+
+    @Override
+    public void setNoteFraisEncours(List<NoteFrais> data) {
+        // TODO : renderer data in CellList.
     }
 
     @Override

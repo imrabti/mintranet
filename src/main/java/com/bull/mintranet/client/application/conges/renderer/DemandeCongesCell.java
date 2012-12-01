@@ -1,4 +1,4 @@
-package com.bull.mintranet.client.application.home.renderer;
+package com.bull.mintranet.client.application.conges.renderer;
 
 import com.bull.mintranet.client.message.MyMessages;
 import com.bull.mintranet.shared.domaine.DemandeConges;

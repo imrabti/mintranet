@@ -1,6 +1,8 @@
-package com.bull.mintranet.client.application.home;
+package com.bull.mintranet.client.application.conges;
 
 import com.bull.mintranet.client.application.ui.HeaderView;
+import com.bull.mintranet.client.application.ui.MainMenu;
+import com.bull.mintranet.client.application.ui.MenuType;
 import com.bull.mintranet.client.message.MyMessages;
 import com.bull.mintranet.client.resource.Resources;
 import com.bull.mintranet.shared.domaine.DemandeConges;
@@ -13,6 +15,7 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
@@ -20,18 +23,20 @@ import com.googlecode.mgwt.ui.client.MGWT;
 
 import java.util.List;
 
-public class HomeViewImpl extends Composite implements HomeView, HeaderView.Handler {
-    public interface Binder extends UiBinder<Widget, HomeViewImpl> {
+public class CongesViewImpl extends Composite implements CongesView, HeaderView.Handler, MainMenu.Handler {
+    public interface Binder extends UiBinder<Widget, CongesViewImpl> {
     }
 
     @UiField
     HTMLPanel situationCongesWrapper;
     @UiField
     HTMLPanel demandesWrapper;
-    @UiField
-    HTMLPanel noteFraisWrapper;
     @UiField(provided = true)
     HeaderView headerView;
+    @UiField
+    SimplePanel topTabBar;
+    @UiField
+    SimplePanel bottomTabBar;
     @UiField
     Label soldeFinAnnee;
     @UiField
@@ -42,43 +47,50 @@ public class HomeViewImpl extends Composite implements HomeView, HeaderView.Hand
     SpanElement progress;
     @UiField
     Label progressLabel;
-    @UiField(provided = true)
-    CellList<DemandeConges> listDemandesConges;
+    //@UiField(provided = true)
+    //CellList<DemandeConges> listDemandesConges;
 
+    private final MainMenu mainMenu;
     private final MyMessages messages;
     private final ListDataProvider<DemandeConges> demandeCongesProvider;
-    private final ListDataProvider<NoteFrais> noteFraisProvider;
 
     private Presenter presenter;
 
     @Inject
-    public HomeViewImpl(final Binder uiBinder, final HeaderView headerView,
-                        final Resources resources, final MyMessages messages,
-                        final ListDataProvider<DemandeConges> demandeCongesProvider,
-                        final ListDataProvider<NoteFrais> noteFraisProvider) {
+    public CongesViewImpl(final Binder uiBinder, final HeaderView headerView,
+                          final Resources resources, final MyMessages messages,
+                          final ListDataProvider<DemandeConges> demandeCongesProvider,
+                          final MainMenu mainMenu) {
         this.headerView = headerView;
         this.messages = messages;
         this.demandeCongesProvider = demandeCongesProvider;
-        this.noteFraisProvider = noteFraisProvider;
+        this.mainMenu = mainMenu;
 
         initWidget(uiBinder.createAndBindUi(this));
         headerView.setHandler(this);
+        mainMenu.setHandler(this);
 
         if (MGWT.getOsDetection().isAndroid()) {
             situationCongesWrapper.setStyleName(resources.generalStyleCss().widgetBlockAndroid());
             demandesWrapper.setStyleName(resources.generalStyleCss().widgetBlockAndroid());
-            noteFraisWrapper.setStyleName(resources.generalStyleCss().widgetBlockAndroid());
             progressBar.getElement().getStyle().setBackgroundColor("#3c3d3e");
+            topTabBar.getElement().getStyle().setPaddingTop(14, Style.Unit.PX);
+            topTabBar.setWidget(mainMenu);
         } else {
             situationCongesWrapper.setStyleName(resources.generalStyleCss().widgetBlock());
             demandesWrapper.setStyleName(resources.generalStyleCss().widgetBlock());
-            noteFraisWrapper.setStyleName(resources.generalStyleCss().widgetBlock());
+            bottomTabBar.setWidget(mainMenu);
         }
     }
 
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void setSelectedMenu(MenuType menuType) {
+        mainMenu.setSelectedMenu(menuType);
     }
 
     @Override
@@ -102,11 +114,6 @@ public class HomeViewImpl extends Composite implements HomeView, HeaderView.Hand
     }
 
     @Override
-    public void setNoteFraisEncours(List<NoteFrais> data) {
-        // TODO : renderer data in CellList.
-    }
-
-    @Override
     public void home() {
         presenter.home();
     }
@@ -114,5 +121,10 @@ public class HomeViewImpl extends Composite implements HomeView, HeaderView.Hand
     @Override
     public void logout() {
         presenter.logout();
+    }
+
+    @Override
+    public void menuChanged(MenuType menuType) {
+        presenter.goTo(menuType);
     }
 }

@@ -1,6 +1,6 @@
 package com.bull.mintranet.client.application.login;
 
-import com.bull.mintranet.client.application.home.HomePlace;
+import com.bull.mintranet.client.application.conges.CongesPlace;
 import com.bull.mintranet.client.mvp.ActivityImpl;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
@@ -21,6 +21,6 @@ public class LoginActivity extends ActivityImpl<LoginView> implements LoginView.
 
     @Override
     public void login(String username, String password) {
-        placeController.goTo(new HomePlace());
+        placeController.goTo(new CongesPlace());
     }
 }

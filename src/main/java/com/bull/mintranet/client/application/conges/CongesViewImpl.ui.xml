@@ -6,6 +6,10 @@
 
     <ui:with field="resource" type="com.bull.mintranet.client.resource.Resources"/>
     <ui:style>
+        .firstPanel {
+            padding-top: 1px;
+        }
+
         .floatLeft {
             float: left;
         }
@@ -32,8 +36,10 @@
     <mgwt:LayoutPanel>
         <c:HeaderView ui:field="headerView"/>
 
-        <g:ScrollPanel>
-            <g:HTMLPanel>
+        <g:SimplePanel ui:field="topTabBar"/>
+
+        <mgwt:ScrollPanel>
+            <g:HTMLPanel styleName="{style.firstPanel}">
                 <mgwt:RoundPanel>
                     <g:HTMLPanel ui:field="situationCongesWrapper">
                         <h3>Situation congés</h3>
@@ -65,17 +71,12 @@
                 <mgwt:RoundPanel>
                     <g:HTMLPanel ui:field="demandesWrapper">
                         <h3>Demandes de congés encours</h3>
-                        <cell:CellList ui:field="listDemandesConges"/>
-                    </g:HTMLPanel>
-
-                </mgwt:RoundPanel>
-
-                <mgwt:RoundPanel>
-                    <g:HTMLPanel ui:field="noteFraisWrapper">
-                        <h3>Notes de frais encours</h3>
+                        <!--<cell:CellList ui:field="listDemandesConges"/>-->
                     </g:HTMLPanel>
                 </mgwt:RoundPanel>
             </g:HTMLPanel>
-        </g:ScrollPanel>
+        </mgwt:ScrollPanel>
+
+        <g:SimplePanel ui:field="bottomTabBar"/>
     </mgwt:LayoutPanel>
 </ui:UiBinder>

@@ -1,26 +1,26 @@
-package com.bull.mintranet.client.application.conges;
+package com.bull.mintranet.client.application.ndf;
 
+import com.bull.mintranet.client.application.conges.CongesPlace;
 import com.bull.mintranet.client.application.login.LoginPlace;
-import com.bull.mintranet.client.application.ndf.NoteFraisPlace;
 import com.bull.mintranet.client.application.ui.MenuType;
 import com.bull.mintranet.client.mvp.ActivityImpl;
-import com.bull.mintranet.shared.dataprovider.DemandeCongesProvider;
+import com.bull.mintranet.shared.dataprovider.NoteFraisProvider;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
-public class CongesActivity extends ActivityImpl<CongesView> implements CongesView.Presenter {
+public class NoteFraisActivity extends ActivityImpl<NoteFraisView> implements NoteFraisView.Presenter {
     private final PlaceController placeController;
-    private final DemandeCongesProvider demandeCongesProvider;
+    private final NoteFraisProvider noteFraisProvider;
 
     @Inject
-    public CongesActivity(final CongesView view, final EventBus eventBus,
-                          final PlaceController placeController,
-                          final DemandeCongesProvider demandeCongesProvider) {
+    public NoteFraisActivity(final NoteFraisView view, final EventBus eventBus,
+                             final PlaceController placeController,
+                             final NoteFraisProvider noteFraisProvider) {
         super(view, eventBus);
 
         this.placeController = placeController;
-        this.demandeCongesProvider = demandeCongesProvider;
+        this.noteFraisProvider = noteFraisProvider;
 
         getView().setPresenter(this);
     }
@@ -37,8 +37,8 @@ public class CongesActivity extends ActivityImpl<CongesView> implements CongesVi
 
     @Override
     public void goTo(MenuType menuType) {
-        if (menuType == MenuType.NDF) {
-            placeController.goTo(new NoteFraisPlace());
+        if (menuType == MenuType.CONGES) {
+            placeController.goTo(new CongesPlace());
         } else if (menuType == MenuType.TROMBINO) {
             // TODO : load trombino later
         }
@@ -46,8 +46,7 @@ public class CongesActivity extends ActivityImpl<CongesView> implements CongesVi
 
     @Override
     protected void onReveal() {
-        getView().setSelectedMenu(MenuType.CONGES);
-        getView().setCongesStatus(16f, 25f, 9f);
-        getView().setDemandeCongesEncours(demandeCongesProvider.getData());
+        getView().setSelectedMenu(MenuType.NDF);
+        getView().setNoteFraisEncours(noteFraisProvider.getData());
     }
 }

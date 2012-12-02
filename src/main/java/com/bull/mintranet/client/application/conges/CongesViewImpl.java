@@ -110,7 +110,9 @@ public class CongesViewImpl extends Composite implements CongesView, HeaderView.
 
     @Override
     public void setDemandeCongesEncours(List<DemandeConges> data) {
-        // TODO : renderer data in CellList.
+        demandeCongesProvider.getList().clear();
+        demandeCongesProvider.getList().addAll(data);
+        demandeCongesProvider.refresh();
     }
 
     @Override

@@ -13,7 +13,6 @@ public class LoginActivity extends ActivityImpl<LoginView> implements LoginView.
     public LoginActivity(final LoginView view, final EventBus eventBus,
                          final PlaceController placeController) {
         super(view, eventBus);
-
         this.placeController = placeController;
 
         getView().setPresenter(this);
